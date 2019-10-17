@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<title>Login-FlaskDemo</title>
+</head>
+<body>
+{% if "userlogged" not in session %}
+        <div class="jumbotron">
+                <h1 class="display-4">Welcome, User!. Happy to see you again. ;)</h1>
+                <p>Please Check all the Fields Correctly!</p>
+            </div>
+                {%  if err %}
+                    <div class="alert alert-danger alert-dismissible fade show w-50 mx-auto">
+                        {{ err }}
+                    </div>
+            {% endif %}
+            {% if "thisis" in request.args and request.args.get('thisis') == "success" %}
+                <div class="alert alert-success alert-dismissible fade show w-50 mx-auto">
+                        You've Registered Successfully!.. Now you can login
+                    </div>
+            {% endif %}
+            <form method="post" action="{{ url_for('login') }}" class="container">
+                <div class="form-group w-50 mx-auto">
+                    <small><h6 class="float-right justify-content-end">Don't have account?.<a href="{{ url_for('register') }}">Click Here</a></h6></small>
+                    <label for="Username">Username/Email</label>
+                    <input id="Username" class="form-control" type="text" name="username" placeholder="Enter Username/Email">
+                </div>
+                <div class="form-group w-50 mx-auto">
+                        <label for="Password">Password</label>
+                        <input id="Password" class="form-control" type="password" name="password" placeholder="Enter Password">
+                    </div>
+                    <center><button type="submit" class="btn btn-primary w-25">Submit</button></center>
+
+            </form>
+            <center><footer style="position: fixed ;bottom: 0;">
+                &copy;FlaskDemo
+            </footer>
+        </center>
+{% else %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome, {{ username }}!. Happy to see you again. ;)</h1>
+    <p>You Belong to {{ org }}</p>
+            <div class="dropdown float-right mx-auto">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{{ username }}</button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ url_for('logout') }}">Logout!</a>
+                    <a class="dropdown-item" href="#">Profile</a>
+
+                  </div>
+                </div>
+            </div>
+    </h1>
+    <div style="text-align: center;"><h1>You're belong to {{ org }} Organization!</h1></div>
+{% endif %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
